@@ -6,6 +6,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http'; 
 
+import { HomePageModule } from './../pages/home/home.module';
+import { HeroesDetailPageModule } from './../pages/heroes-detail/heroes-detail.module';
+
 import { DCPage } from '../pages/dc/dc';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -18,13 +21,15 @@ import { IonicStorageModule } from '@ionic/storage';
   declarations: [
     MyApp,
     DCPage,
-    HomePage,
-    HeroesDetailPage,
+    //HomePage,
+    //HeroesDetailPage,
     TabsPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    HomePageModule,
+    HeroesDetailPageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
         name: '__dbheroes',

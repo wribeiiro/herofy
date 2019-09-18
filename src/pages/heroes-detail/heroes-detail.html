@@ -1,15 +1,41 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Detalhes: {{name}}</ion-title>
+        <ion-title>{{name}}</ion-title>
     </ion-navbar>
-</ion-header>
+</ion-header> 
 
 <ion-content>
     <ion-card>
         <img src="{{thumb}}"/>
         <ion-card-content>
             <ion-card-title>{{name}}</ion-card-title>
-            <p>{{description}}</p>
+            <p>
+                <strong>Description</strong><br>
+                <span text-wrap>
+                    {{description}}
+                </span>
+            </p>
+            <hr>
+            <p>
+                <strong>Comics</strong><br>
+                <span text-wrap *ngFor="let comic of comics">
+                    - {{comic.name}} <br>
+                </span>
+            </p>
+            <hr>
+            <p>
+                <strong>Series</strong><br>
+                <span text-wrap *ngFor="let serie of series">
+                    - {{serie.name}} <br>
+                </span>
+            </p>
+            <hr>
+            <p>
+                <strong>Stories</strong><br>
+                <span text-wrap *ngFor="let storie of stories">
+                    - {{storie.name}} <br>
+                </span>
+            </p>
         </ion-card-content>
     </ion-card>
 </ion-content>

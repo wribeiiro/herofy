@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { HeroService } from '../../providers/hero-service/hero-service';
+import { HeroesDetailPage } from '../heroes-detail/heroes-detail';
 
+@IonicPage()
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -22,36 +24,35 @@ export class HomePage {
     async getAllHeroes() {
         await this.heroService.getAllHeroes(this.offset).then((data) => {
             this.heroes = data['data']['results'];
-            this.offset = data['data']['offset'];
-
         }).catch((err) => {
             alert("Error in loading data: " + err)
-        })
+        });
     }
  
     getHeroes(id: number){
-        this.navCtrl.push('HeroesDetailPage', {id: id})
+        this.navCtrl.push(HeroesDetailPage, {id: id})
     }
 
-    async doPaginateHeroes() {
-        for(let i = 1; i <= 14; i++) {
-            this.offset = i * 100;
+    doPaginateHeroes(infiniteScroll) {
+        this.offset += 100;
+        
+        if(this.offset < 1400) {
+            setTimeout(() => {
+                this.heroService.getAllHeroes(this.offset).then(data => {
+                
+                    for(let hero of data['data']['results']){
+                        this.heroes.push(hero);
+                    }
 
-            await this.heroService.getAllHeroes(this.offset).then(data => {
-                this.heroes.push(data['data']['results']);
-            }).catch((err) => {
-                alert("Error in loading data: " + err);
-            });
+                }).catch((err) => {
+                    alert("Error in loading data: " + err);
+                });
+
+                infiniteScroll.complete();
+            }, 500);
         }
     }
              
-    doInfinite(infiniteScroll) {
-        setTimeout(() => {
-            this.doPaginateHeroes()
-            infiniteScroll.complete();
-        }, 750);
-    }
- 
     getHeroFilter(ev: any) {
         /*if(ev.target.value == '') {
             this.count = 0;

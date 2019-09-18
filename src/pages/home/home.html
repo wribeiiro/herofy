@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-toolbar>
-            <ion-searchbar (ionInput)="getHeroFilter($event)" placeholder="Buscar" [(ngModel)]="searchHero"></ion-searchbar>
+            <ion-searchbar (ionInput)="getHeroFilter($event)" placeholder="Search hero" [(ngModel)]="searchHero"></ion-searchbar>
         </ion-toolbar>
     </ion-navbar>
 </ion-header>
@@ -16,7 +16,7 @@
         </ion-item> 
     </ion-list>
 
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="doPaginateHeroes($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando heróis..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content>

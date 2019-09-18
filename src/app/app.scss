@@ -19,16 +19,19 @@ ion-icon {
     &[class*="prefix-"] {
         mask-size: contain;
         mask-position: 50% 50%;
-        mask-repeat: no-repeat;
-        background: currentColor;
-        width: 1em;
-        height: 1em;
+        mask-repeat: no-repeat;  
     }
     // custom icons
-    &[class*="prefix-dc"] {
+    &[class*="prefix-dc"] { 
+        width: 2em;
+        height: 2em; 
         mask-image: url(../assets/imgs/dc.svg);
+        background: #425796;
     }
     &[class*="prefix-marvel"] {
+        background: #EE171F;
+        width: 3em;
+        height: 3em; 
         mask-image: url(../assets/imgs/marvel.svg);
     }
 }
