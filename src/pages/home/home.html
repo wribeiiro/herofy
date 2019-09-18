@@ -8,7 +8,7 @@
 
 <ion-content padding>
     <ion-list>
-        <ion-item class="hero" *ngFor="let hero of items" (click)="getHeroes(hero.id)">
+        <ion-item class="hero" *ngFor="let hero of heroes" (click)="getHeroes(hero.id)">
             <ion-avatar item-left >
                 <img src="{{hero.thumbnail.path}}.{{hero.thumbnail.extension}}">
             </ion-avatar>
@@ -16,7 +16,7 @@
         </ion-item> 
     </ion-list>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando heróis..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content>

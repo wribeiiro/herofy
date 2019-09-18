@@ -8,38 +8,48 @@ import { HeroService } from '../../providers/hero-service/hero-service';
 })
 
 export class HomePage {
-    public heroes: any;
-    public items: any   = [];
+    heroes: any         = [];
     searchHero: string  = null;
-    count: number       = 0;
-  
-    constructor(public navCtrl: NavController, public heroService: HeroService) {
-        //this.getAllHeroes();
-    }
+    offset: number      = 0;
+    constructor(public navCtrl: NavController, public heroService: HeroService){
+        
+    } 
 
-    async getAllHeroes() {
-        /*await this.heroService.load().then(data => {
-            this.heroes = data;
-            this.doPaginate(); 
-        });*/
+    ionViewDidLoad(){
+        this.getAllHeroes();
     }
  
-    getHeroes(id:number){
+    async getAllHeroes() {
+        await this.heroService.getAllHeroes(this.offset).then((data) => {
+            this.heroes = data['data']['results'];
+            this.offset = data['data']['offset'];
+
+        }).catch((err) => {
+            alert("Error in loading data: " + err)
+        })
+    }
+ 
+    getHeroes(id: number){
         this.navCtrl.push('HeroesDetailPage', {id: id})
     }
 
-    doPaginate() {
-       /* for(let x = 0; x < 10; x++) { 
-            this.items.push(this.heroes[this.count]); 
-            this.count++;
-        }*/
+    async doPaginateHeroes() {
+        for(let i = 1; i <= 14; i++) {
+            this.offset = i * 100;
+
+            await this.heroService.getAllHeroes(this.offset).then(data => {
+                this.heroes.push(data['data']['results']);
+            }).catch((err) => {
+                alert("Error in loading data: " + err);
+            });
+        }
     }
-            
+             
     doInfinite(infiniteScroll) {
         setTimeout(() => {
-            this.doPaginate()
+            this.doPaginateHeroes()
             infiniteScroll.complete();
-        }, 500);
+        }, 750);
     }
  
     getHeroFilter(ev: any) {
