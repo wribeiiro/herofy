@@ -34,4 +34,4 @@ $ ionic run ios
 ### Screenshots
 Some examples
 
-![View this](screenshot.JPEG)
+![View this](/screenshot.JPEG)
