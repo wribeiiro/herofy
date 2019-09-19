@@ -30,3 +30,8 @@ To run in avd, device
 $ ionic run android
 $ ionic run ios
 ```
+
+### Screenshots
+Some examples
+
+![View this](screenshot.JPEG)
