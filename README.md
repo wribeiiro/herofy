@@ -24,7 +24,7 @@ $ cordova platform add ios
 ```
 
 ### Run Platforms
-To run in avd
+To run in avd, device
 
 ```sh
 $ ionic run android
