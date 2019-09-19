@@ -18,7 +18,7 @@ export class HeroesDetailPage {
     public stories: any = [];
   
     constructor(public navCtrl: NavController, public navParams: NavParams, public heroService: HeroService) {
-        this.heroService.getDescription(navParams.get("id")).then(data => {
+        this.heroService.getDescriptionHeroMarvel(navParams.get("id")).then(data => {
             this.obj = data;
 
             this.name        = this.obj.data.results[0].name; 

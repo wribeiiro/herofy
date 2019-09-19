@@ -18,11 +18,11 @@ export class HomePage {
     } 
 
     ionViewDidLoad(){
-        this.getAllHeroes();
+        this.getAllHeroesMarvel();
     }
  
-    async getAllHeroes() {
-        await this.heroService.getAllHeroes(this.offset).then((data) => {
+    async getAllHeroesMarvel() {
+        await this.heroService.getAllHeroesMarvel(this.offset).then((data) => {
             this.heroes = data['data']['results'];
         }).catch((err) => {
             alert("Error in loading data: " + err)
@@ -38,7 +38,7 @@ export class HomePage {
         
         if(this.offset < 1400) {
             setTimeout(() => {
-                this.heroService.getAllHeroes(this.offset).then(data => {
+                this.heroService.getAllHeroesMarvel(this.offset).then(data => {
                 
                     for(let hero of data['data']['results']){
                         this.heroes.push(hero);
