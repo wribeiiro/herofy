@@ -5,8 +5,12 @@ import 'rxjs/add/operator/map';
 import { Md5 } from 'ts-md5/dist/md5';
 import { LoadingController } from 'ionic-angular';
 
-const keyMARVEL = 'ebd407c102ea3f1262b8dd370cfa04d4a132a867d8b23f3429d72898aaffd1a321761b4a';
-const keyDC     = 'a796494a83d4ed8a5a6f8bbb44191904200068de';
+const keyMARVEL = {
+    private: '71667622c75e8ee5e945907bcbb1800852a038dc',
+    public: '9f60a635ca92799cd2569612cbdb8575'
+}
+
+const keyDC = 'a796494a83d4ed8a5a6f8bbb44191904200068de';
 
 @Injectable()
 export class HeroService {
@@ -17,12 +21,12 @@ export class HeroService {
     public getAllHeroesMarvel(offset) {
 
         let timestamp = Number(new Date());
-        let hash      = Md5.hashStr(timestamp+keyMARVEL);
+        let hash      = Md5.hashStr(timestamp + keyMARVEL.private + keyMARVEL.public);
         let loader    = this.loader.create({content: "Carregando heróis MARVEL, aguarde..."});
             
         loader.present();
         return new Promise((resolve, reject) => {
-            this.http.get(`https://gateway.marvel.com:443/v1/public/characters?ts=${timestamp}&orderBy=name&offset=${offset}&limit=100&apikey=${keyMARVEL}&hash=${hash}`)
+            this.http.get(`https://gateway.marvel.com:443/v1/public/characters?ts=${timestamp}&orderBy=name&offset=${offset}&limit=100&apikey=${keyMARVEL.public}&hash=${hash}`)
             .subscribe(data => {
                 loader.dismissAll();
 
@@ -40,9 +44,9 @@ export class HeroService {
         return new Promise(resolve => {
 
             let timestamp = Number(new Date());
-            let hash = Md5.hashStr(timestamp+keyMARVEL);
-    
-            this.http.get(`https://gateway.marvel.com:443/v1/public/characters/${id}?ts=${timestamp}&orderBy=name&apikey=${keyMARVEL}&hash=${hash}`)
+            let hash      = Md5.hashStr(timestamp + keyMARVEL.private + keyMARVEL.public);
+
+            this.http.get(`https://gateway.marvel.com:443/v1/public/characters/${id}?ts=${timestamp}&orderBy=name&apikey=${keyMARVEL.public}&hash=${hash}`)
             .subscribe(data => {
                 resolve(data);
             });
